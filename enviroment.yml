@@ -9,4 +9,5 @@ dependencies:
   - jupyterlab
   - numpy
   - pandas
+  - mysqlclient
 prefix: /opt/anaconda3/envs/comp30830
