@@ -5,7 +5,7 @@ from datetime import datetime
 import sqlalchemy as sqla
 from sqlalchemy import create_engine
 
-URI = "dublinbikesdb.ctnqnsdsyxei.us-east-1.rds.amazonaws.com"
+URI = "dbbikes.ck8yyafvjq4p.eu-west-1.rds.amazonaws.com"
 PASSWORD = "Grouptwentysix"
 PORT = "3306"
 DB = "dbbikes"
