@@ -30,7 +30,17 @@ def availability_to_db(text):
 
 def weather_to_db(text):
     weather = json.loads(text)
-    weather_vals = (weather["weather"][0]["id"],weather["weather"][0]["main"],weather["weather"][0]["description"],weather["main"]["temp"],weather["main"]["feels_like"],weather["main"]["humidity"],weather["visibility"],weather["wind"]["speed"],weather["wind"]["deg"],weather["clouds"]["all"],datetime.fromtimestamp(weather["dt"]))
+    weather_vals = (weather["weather"][0]["id"],
+                    weather["weather"][0]["main"],
+                    weather["weather"][0]["description"],
+                    weather["main"]["temp"],
+                    weather["main"]["feels_like"],
+                    weather["main"]["humidity"],
+                    weather["visibility"],
+                    weather["wind"]["speed"],
+                    weather["wind"]["deg"],
+                    weather["clouds"]["all"],
+                    weather["dt"])
     print(weather_vals)
     engine.execute("insert into weather values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",weather_vals)
     return
