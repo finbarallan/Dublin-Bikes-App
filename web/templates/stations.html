@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <div class="row">
+            <div>testing</div>
+            <ul id="station_list"></ul>
+        </div>
+    </div>
+    <script>
+        function createStationList(){
+            // getting a list of the stations from flask
+            var jqxhr = $.getJSON("/station_info", function(data){
+
+                // Isolate the station list
+                stationList = document.getElementById("station_list");
+
+                console.log("success", data);
+                var stations = data;
+
+                // Loop through each station
+                for (station_num in stations){
+                    // Create a new list item
+                    const listItem = document.createElement("li");
+
+                    // Creates a link to the specific station page
+                    const linkItem = document.createElement("a");
+                    linkItem.href = "station/" + stations[station_num].number;
+
+                    // sets text for each list item equal to station name
+                    const stationInfo = document.createTextNode(stations[station_num].address);
+                    
+                    // adds clickable station lists to page
+                    listItem.appendChild(stationInfo);
+                    linkItem.appendChild(listItem);
+                    stationList.appendChild(linkItem);
+                }
+            })
+            .fail(function(){
+                console.log("error");
+            })
+        }
+    </script>
+</body>
+</html>l
