@@ -4,7 +4,6 @@ import json
 
 app = Flask(__name__, static_url_path='')
 
-
 def connect_to_database():
     URI = "dublinbikesdatabase.ck8yyafvjq4p.eu-west-1.rds.amazonaws.com"
     PASSWORD = "Grouptwentysix"
@@ -27,18 +26,18 @@ def close_connection(exception):
         db.close()
 
 #bike info means back end
-@app.route("/bike_info")
-def get_station_info():
+@app.route("/bike-info")
+def get_bike_info():
     engine = get_database()
     stations = []
     rows = engine.execute("SELECT * from station;")
     for row in rows:
         stations.append(dict(row))
-    return jsonify(stations=stations)
+    return jsonify(stations)
 
 #bike info means back end
-@app.route("/bike_info/<int:station_id>")
-def get_station_availability(station_id):
+@app.route("/bike-info/<int:station_id>")
+def get_bike_availability(station_id):
     engine = get_database()
     data = []
     rows = engine.execute("SELECT available_bikes from availability where number = {};".format(station_id))
@@ -55,12 +54,12 @@ def index():
 #station means front end
 @app.route("/station/all")
 def all_stations():
-    return render_template("station.html")
+    return render_template("stations-all.html")
 
 #station means front end
 @app.route("/station/<int:station_id>")
 def specific_stations(station_id):
-    return render_template("specific_station.html", station_id=station_id)
+    return render_template("stations-specific.html", station_id=station_id)
 
 if __name__ == "__main__":
     app.run(port=8080)
@@ -68,3 +67,4 @@ if __name__ == "__main__":
 #need to add availability functionality route
 #need to add distance calculation functionality route
 #need to ad weather information route
+#reconnect to server
