@@ -25,6 +25,16 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+#station-info info means back end
+@app.route("/station-info/<int:station_id>")
+def get_station_info(station_id):
+    engine = get_database()
+    data = []
+    rows = engine.execute("SELECT * from station where number = {};".format(station_id))
+    for row in rows:
+        data.append(dict(row))
+    return jsonify(data)
+
 #bike info means back end
 @app.route("/bike-info")
 def get_bike_info():
@@ -40,10 +50,10 @@ def get_bike_info():
 def get_bike_availability(station_id):
     engine = get_database()
     data = []
-    rows = engine.execute("SELECT available_bikes from availability where number = {};".format(station_id))
+    rows = engine.execute("SELECT * from availability where number = {};".format(station_id))
     for row in rows:
         data.append(dict(row))
-    return jsonify(available=data)
+    return jsonify(data)
 
 #will need to update index.html to latest code
 @app.route("/index")

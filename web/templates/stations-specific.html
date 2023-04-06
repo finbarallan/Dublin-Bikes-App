@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dublin Bike Station Information</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" 
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
+        crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="img\favicon.ico">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+<body>
+
+<!-- Main content -->
+<div id="loader" class="loader"></div>
+<div class="container" id="information">
+        <!-- Row for the station title -->
+        <div class="row" id="station_title_row" style="display:none;">
+            <h1 id="station_title"></h1>
+        </div>
+
+        <div class="row" id="current_availability_header" style="display:none;">
+            <h2>Current Availability Information</h2>
+        </div>
+
+        <!-- Row for the station availability information -->
+        <div class="row" id="station_info" style="display:none;"></div>
+    
+    <!-- REFERENCE -->
+    <script> var station_id = '{{ station_id }}'; </script>
+            
+    <script src="{{ url_for('static', filename='js/stations-specific.js') }}"></script>
+    <script>displayStationInfo()</script>
+</body>
+</html>

@@ -15,12 +15,12 @@ function addStations() {
             let accessAddresses = document.createTextNode(data[nums].address);
 
             // Set the href attribute of the anchor to the station's detail page URL
-            accessLinks.href = "station/" + data[nums].number;
-            // Append the station address text to the anchor element
+            accessLinks.href = data[nums].number;
+            // Append the station address text to the list item
             accessLinks.appendChild(accessAddresses);
-            // Append the anchor element to the list item
+            // Append the list item to the anchor element
             accessLists.appendChild(accessLinks);
-            // Append the list item to an existing list element (presumably with the id "list")
+            // Append the anchor element to an existing list element (presumably with the id "list")
             list.appendChild(accessLists);
         }
     })
