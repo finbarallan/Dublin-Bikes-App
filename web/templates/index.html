@@ -4,104 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Dublin Bike Stations</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" 
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
         crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="img\favicon.ico">
-    <link rel="stylesheet" type="text/css" href="./bikecss.css" />
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
-<!--
-<div class="header">
-  <img src="img\logo.png.png" alt="logo"/>
-</div>
-<div id = "logo2"><img src="img\logo-contractor.png" alt="logo2"/>
-  </div>
--->
-<header>
-		<nav>
-			<div class="logo1">
-                <a href="ronan_dbbikes_updated.html"><img src="img\logo.png.png" alt="logo1"/></a>
-			</div>
-			<ul>
-				<li><a href="ronan_dbbikes_updated.html">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-            <div class="logo2">
-                <a href="https://www.dublincity.ie/residential" target="_blank"><img src="img\logo-contractor.png" alt="logo2"/></a>
-			</div>
-		</nav>
-	</header>
-    <!-- Map container -->
-    <div id="map"></div>
-    <!-- Google Maps API script -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFKfX9-Zt_A2qvrIUyINuK2Gi-iOBHB5Y"></script>
-    <!-- JavaScript code to create the map -->
-    <script>
-      /* // Initialize the map
-      function initMap() {
-        // Set the map options
-        var mapOptions = {
-          zoom: 13.5, // Set the zoom level
-          center: {
-            lat: 53.346396,
-            lng: -6.263156
-          } // Set the center point of the map
-        };
-        // Create the map object
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-          var iconSize = new google.maps.Size(25, 25);
-    
-      fetch('https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=a572dc37b128fb280c9e1621093640367863e160').then(response => response.json()).then(data => {
-        // Loop through each station and add a marker to the map
-        data.forEach(station => {
-          var marker = new google.maps.Marker({
-            position: {
-              lat: station.position.lat,
-              lng: station.position.lng
-            },
-            map: map,
-            title: station.name,
-              icon: {
-            url: 'https://maps.google.com/mapfiles/ms/micons/red.png',
-            scaledSize: iconSize}
-          });
-        });
-      });
-      }
-      // Call the initMap function when the page loads
-      window.onload = initMap; */
-      // Initialize the map
-      function initMap() {
-        // Set the map options
-        var mapOptions = {
-          zoom: 13.5, // Set the zoom level
-          center: {
-            lat: 53.346396,
-            lng: -6.263156
-          } // Set the center point of the map
-        };
-        // Create the map object
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        fetch('https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=a572dc37b128fb280c9e1621093640367863e160').then(response => response.json()).then(data => {
-          // Loop through each station and add a marker to the map
-          data.forEach(station => {
-            var marker = new google.maps.Marker({
-              position: {
-                lat: station.position.lat,
-                lng: station.position.lng
-              },
-              map: map,
-              title: station.name
-            });
-          });
-        });
-      }
-      // Call the initMap function when the page loads
-      window.onload = initMap;
-    </script>
-  </body>
+    <header>
+        <h1>Dublin Bike Stations</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="journey-container">
+          <div class="journey-section">
+            <h3>Begin Journey</h3>
+            <select>
+              {% for hour in range(8, 24) %}
+                <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
+              {% endfor %}
+            </select>
+            <input class="location-input" type="text" placeholder="Select a location on the map">
+          </div>
+          <div class="journey-section">
+            <h3>Finish Journey</h3>
+            <select>
+              {% for hour in range(8, 24) %}
+                <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
+              {% endfor %}
+            </select>
+            <input class="location-input" type="text" placeholder="Select a location on the map">
+          </div>
+        </div>
+        </div>
+        <div id="map"></div>
+    </main>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFKfX9-Zt_A2qvrIUyINuK2Gi-iOBHB5Y&libraries=geometry&callback=initMap"></script>
+    <script id="main-script" src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
 </html>

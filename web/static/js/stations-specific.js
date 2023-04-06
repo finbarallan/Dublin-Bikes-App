@@ -1,3 +1,4 @@
+// REFERENCE - Refactoring required
 // displays realtime information for a specific station
 function displayStationInfo() {
     // Show the loading indicator
@@ -54,7 +55,7 @@ function populateCurrentAvailability(header, key, availability, stationInfoList)
 
     //inserts quantity into availability data
     var availabilityCount = document.createElement("p");
-    availabilityCount.innerHTML = availability[0][key];
+    availabilityCount.innerHTML = availability[availability.length - 1][key];
 
     // displays elements on the page
     availabilityContainer.appendChild(availabilityHeader);
