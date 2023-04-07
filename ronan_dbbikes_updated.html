@@ -77,13 +77,14 @@
 
                     var infoWindow = new google.maps.InfoWindow({
                         content: '<div class="card">' +
-                            '<div class="card-title">Station Info</div>' +
+                            '<div class="card-title">' + station.name + '</div>' +
                             '<div class="card-content">' +
                             '<p><img src="img/availablebikespng.png" width="40px" height="40px"> Available bikes: ' + station.available_bikes + '</p>' +
                             '<p><img src="img/bikestandspng.png" width="40px" height="40px"> Available bike stands: ' + station.available_bike_stands + '</p>' +
                             '</div>' +
                             '</div>'
                     });
+
                     // Add a click event listener to the marker
                     marker.addListener('click', function() {
                         // If an info window is already open, close it
@@ -91,10 +92,17 @@
                             openInfoWindow.close();
                         }
 
+                        // Update the content of the info-card div
+                        var infoCard = document.querySelector('.info-card');
+                        infoCard.querySelector('.card-title').textContent = station.name;
+                        infoCard.querySelector('.card-content').innerHTML = '<p><img src="img/availablebikespng.png" width="40px" height="40px"> Available bikes: ' + station.available_bikes + '</p>' +
+                            '<p><img src="img/bikestandspng.png" width="40px" height="40px"> Available bike stands: ' + station.available_bike_stands + '</p>';
+
                         // Open the info window for the clicked marker and set it as the currently open info window
                         infoWindow.open(map, marker);
                         openInfoWindow = infoWindow;
                     });
+
                 });
             });
         }
