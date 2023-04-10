@@ -1,15 +1,51 @@
 /* Set the size of the div element that contains the map */
 #map {
-  height: 580px; /* The height is 400 pixels */
-  width: 100%; /* The width is the width of the web page */
+    height: 525px;
+    /* The height is 400 pixels */
+    width: 75%;
+    /* The width is the width of the web page */
+    justify-content: center;
+}
+
+
+/* Center the search bar */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40opx;
+    width: 300px;
+}
+
+/* Style the card on the right */
+.info-card {
+    position: absolute;
+    top: 64px;
+    right: 0px;
+    width: 280px;
+    height: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Style the card title and content */
+.card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    margin-bottom: 20px;
 }
 
 nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	height: 100%;
-	padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 20px;
 }
 
 .logo1 img {
@@ -19,36 +55,36 @@ nav {
 }
 
 .logo2 {
-	margin-left: auto;
+    margin-left: auto;
 }
 
 .logo2 img {
-	width: 200px;
+    width: 200px;
     height: 50px;
     background: white;
 }
 
 ul {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     padding-left: 80px;
 }
 
 li {
-	margin-right: 20px;
+    margin-right: 20px;
 }
 
 a {
-	text-decoration: none;
-	color: #fff;
-	font-size: 28px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 28px;
     font-family: Raleway Regular;
     color: #333;
     align-items: center;
 }
 
 a:hover {
-	color: #ccc;
+    color: #ccc;
 }
