@@ -31,7 +31,7 @@
                 <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
               {% endfor %}
             </select>
-            <input class="location-input" type="text" placeholder="Select a location on the map">
+            <input class="location-input" id="start_location" type="text" placeholder="Select a location on the map">
           </div>
           <div class="journey-section">
             <h3>Finish Journey</h3>
@@ -40,7 +40,7 @@
                 <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
               {% endfor %}
             </select>
-            <input class="location-input" type="text" placeholder="Select a location on the map">
+            <input class="location-input" id="end_location" type="text" placeholder="Select a location on the map">
           </div>
         </div>
         </div>
