@@ -1,5 +1,6 @@
-from flask import Flask, g, render_template, jsonify
+from flask import Flask, g, request, render_template, jsonify
 from sqlalchemy import create_engine
+from unpickle import pickle_predict
 import json
 
 app = Flask(__name__, static_url_path='')
@@ -70,6 +71,27 @@ def all_stations():
 @app.route("/station/<int:station_id>")
 def specific_stations(station_id):
     return render_template("stations-specific.html", station_id=station_id)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Get user input values from request object
+    station_number = request.form.get('station_number')
+    weather = request.form.get('weather')
+    description = request.form.get('description')
+    temp = request.form.get('temp')
+    feels_like = request.form.get('feels_like')
+    humidity = request.form.get('humidity')
+    wind_speed = request.form.get('wind_speed')
+    day = request.form.get('day')
+    hour = request.form.get('hour')
+
+    # Call pickle_predict() function with user input values
+    prediction = pickle_predict(station_number, weather, description, temp, feels_like, humidity, wind_speed, day, hour)
+
+    # Return predicted values as JSON response
+    response = {'available_bikes': prediction[0], 'available_stands': prediction[1]}
+    return jsonify(response)
+
 
 if __name__ == "__main__":
     app.run(port=8080)

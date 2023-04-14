@@ -19,7 +19,8 @@ header h1 {
 nav {
     background-color: #444;
     padding: 0.75rem 1rem;
-    margin-bottom: -0.5rem; /* Adjust this value to your preference */
+    margin-bottom: -0.5rem;
+    /* Adjust this value to your preference */
 }
 
 nav ul {
@@ -114,7 +115,8 @@ nav ul li a:hover {
     .left-side {
         min-width: 100%;
         margin-bottom: 1rem;
-        margin-right: 0; /* Add this line */
+        margin-right: 0;
+        /* Add this line */
     }
 
     .map-container {
@@ -190,11 +192,99 @@ main {
 }
 
 .weather-details p {
-    margin-top: 0.65rem; /* Adjust this value to change the spacing between paragraphs */
-    margin-bottom: 0.65rem; /* Adjust this value to change the spacing between paragraphs */
+    margin-top: 0.65rem;
+    /* Adjust this value to change the spacing between paragraphs */
+    margin-bottom: 0.65rem;
+    /* Adjust this value to change the spacing between paragraphs */
 }
 
 .wind-arrow {
     display: inline-block;
     transform-origin: center center;
+}
+
+.predition-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.prediction-container input[type="text"] {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+}
+
+#prediction-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.prediction-labels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.prediction-label {
+    width: calc(33.33% - 10px);
+    text-align: right;
+}
+
+.prediction-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.prediction-input {
+    width: calc(33.33% - 10px);
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+}
+
+#predict-button {
+    width: auto;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#predict-button:hover {
+    background-color: #444;
+}
+
+#prediction-results {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
 }

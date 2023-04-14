@@ -49,26 +49,55 @@
         <div class="weather-container">
           <h3>Weather in Dublin</h3>
           <div class="weather-info">
-              <div class="weather-icon">
-                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Weather icon" id="weather-icon">
-              </div>
-              <div class="weather-details">
-                  <p id="temperature"></p>
-                  <p id="weather-description"></p>
-                  <p id="humidity"></p>
-                  <p id="wind-speed"></p>
-                  <p>
-                      Wind direction:
-                      <span id="wind-direction"></span>
-                      <span class="wind-arrow" id="wind-arrow">&#10148;</span>
-                  </p>
-              </div>
+            <div class="weather-icon">
+              <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Weather icon"
+                id="weather-icon">
+            </div>
+            <div class="weather-details">
+              <p id="temperature"></p>
+              <p id="weather-description"></p>
+              <p id="humidity"></p>
+              <p id="wind-speed"></p>
+              <p>
+                Wind direction:
+                <span id="wind-direction"></span>
+                <span class="wind-arrow" id="wind-arrow">&#10148;</span>
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
       </div>
       <div class="map-container">
         <div id="map"></div>
       </div>
+    </div>
+    <div class="predition-container">
+      <form id="prediction-form">
+        <div id="prediction-labels">
+          <label for="station-number">Station number:</label>
+          <label for="weather">Weather:</label>
+          <label for="description">Description:</label>
+          <label for="temp">Temperature:</label>
+          <label for="feels-like">Feels like:</label>
+          <label for="humidity">Humidity:</label>
+          <label for="wind-speed">Wind speed:</label>
+          <label for="day">Day:</label>
+          <label for="hour">Hour:</label>
+        </div>
+        <div id="prediction-inputs">
+          <input type="text" id="station-number" name="station_number"><br>
+          <input type="text" id="weather" name="weather"><br>
+          <input type="text" id="description" name="description"><br>
+          <input type="text" id="temp" name="temp"><br>
+          <input type="text" id="feels-like" name="feels_like"><br>
+          <input type="text" id="humidity" name="humidity"><br>
+          <input type="text" id="wind-speed" name="wind_speed"><br>
+          <input type="text" id="day" name="day"><br>
+          <input type="text" id="hour" name="hour"><br>
+        </div>
+        <button type="submit" id="predict-button">Predict</button>
+      </form>
+      <div id="prediction-results"></div>
     </div>
   </main>
   <div id="marker-icons" style="display:none;" data-start-icon="{{ url_for('static', filename='img/start.png') }}"
@@ -76,6 +105,8 @@
   <script defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFKfX9-Zt_A2qvrIUyINuK2Gi-iOBHB5Y&libraries=geometry&callback=initMap"></script>
   <script id="main-script" src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <script id="main-script" src="{{ url_for('static', filename='js/weather.js') }}"></script>
+  <script id="main-script" src="{{ url_for('static', filename='js/predictive.js') }}"></script>
 </body>
 
 </html>
