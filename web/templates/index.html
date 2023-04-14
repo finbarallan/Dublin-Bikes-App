@@ -28,26 +28,17 @@
       <div class="left-side">
         <div class="journey-container">
           <div class="journey-section">
+            <h2>Get Directions</h2>
             <h3>Begin Journey</h3>
-            <!-- <select>
-              {% for hour in range(8, 24) %}
-              <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
-              {% endfor %}
-            </select> -->
             <input class="location-input" id="start_location" type="text" placeholder=" Select a location on the map">
           </div>
           <div class="journey-section">
             <h3>Finish Journey</h3>
-            <!-- <select>
-              {% for hour in range(8, 24) %}
-              <option value="{{ hour }}:00">{{ "%02d" % hour }}:00</option>
-              {% endfor %}
-            </select> -->
             <input class="location-input" id="end_location" type="text" placeholder=" Select a location on the map">
           </div>
         </div>
         <div class="weather-container">
-          <h3>Weather in Dublin</h3>
+          <h2>Live Weather in Dublin</h2>
           <div class="weather-info">
             <div class="weather-icon">
               <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Weather icon"
@@ -66,38 +57,35 @@
             </div>
           </div>
         </div>
+        <div class="prediction-container">
+          <h2>Journey Planner</h2>
+          <form id="prediction-form">
+            <label for="station-number">
+              <h3>Station Number</h3>
+            </label>
+            <input class="prediction-input" type="text" id="station-number" name="station_number"
+              placeholder=" Select a marker on the map">
+            <label for="date">
+              <h3>Date</h3>
+            </label>
+            <input class="prediction-input" type="date" id="date" name="date">
+            <label for="hour">
+              <h3>Time</h3>
+            </label>
+            <input class="prediction-input" list="hours" id="hour" name="hour">
+            <datalist id="hours">
+              {% for hour in range(0, 24) %}
+              <option value="{{ " %02d" % hour }}:00">
+                {% endfor %}
+            </datalist>
+            <button type="submit" id="predict-button">Predict</button>
+          </form>
+          <div id="prediction-results"></div>
+        </div>
       </div>
       <div class="map-container">
         <div id="map"></div>
       </div>
-    </div>
-    <div class="predition-container">
-      <form id="prediction-form">
-        <div id="prediction-labels">
-          <label for="station-number">Station number:</label>
-          <label for="weather">Weather:</label>
-          <label for="description">Description:</label>
-          <label for="temp">Temperature:</label>
-          <label for="feels-like">Feels like:</label>
-          <label for="humidity">Humidity:</label>
-          <label for="wind-speed">Wind speed:</label>
-          <label for="day">Day:</label>
-          <label for="hour">Hour:</label>
-        </div>
-        <div id="prediction-inputs">
-          <input type="text" id="station-number" name="station_number"><br>
-          <input type="text" id="weather" name="weather"><br>
-          <input type="text" id="description" name="description"><br>
-          <input type="text" id="temp" name="temp"><br>
-          <input type="text" id="feels-like" name="feels_like"><br>
-          <input type="text" id="humidity" name="humidity"><br>
-          <input type="text" id="wind-speed" name="wind_speed"><br>
-          <input type="text" id="day" name="day"><br>
-          <input type="text" id="hour" name="hour"><br>
-        </div>
-        <button type="submit" id="predict-button">Predict</button>
-      </form>
-      <div id="prediction-results"></div>
     </div>
   </main>
   <div id="marker-icons" style="display:none;" data-start-icon="{{ url_for('static', filename='img/start.png') }}"

@@ -49,6 +49,16 @@ nav ul li a:hover {
     background-color: #444;
 }
 
+h2 {
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .journey-container {
     display: flex;
     flex-direction: column;
@@ -66,9 +76,9 @@ nav ul li a:hover {
     padding-bottom: 0.5rem;
 }
 
-.journey-section h2 {
+/* .journey-section h2 {
     margin-bottom: 0.25rem;
-}
+} */
 
 .journey-section input {
     height: 30px;
@@ -203,28 +213,26 @@ main {
     transform-origin: center center;
 }
 
-.predition-container {
+.prediction-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin-top: 1.5rem;
-    width: 100%;
+    padding: 1rem;
+    background-color: #fff;
 }
 
-.prediction-container input[type="text"] {
-    display: inline-block;
+.prediction-container input,
+.prediction-container select,
+.prediction-container datalist {
     max-width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
+    padding: 1px;
+}
+
+.prediction-container h2 {
+    margin-bottom: 1rem;
 }
 
 #prediction-form {
@@ -235,36 +243,23 @@ main {
     width: 100%;
 }
 
-.prediction-labels {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 1rem;
-}
 
-.prediction-label {
-    width: calc(33.33% - 10px);
-    text-align: right;
-}
-
-.prediction-inputs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 1rem;
+#prediction-form h3 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
 }
 
 .prediction-input {
-    width: calc(33.33% - 10px);
-    max-width: 100%;
-    box-sizing: border-box;
-    font-size: 16px;
-    padding: 0.5rem;
+    flex-grow: 1;
+    height: 30px;
+    width: 100%;
+    padding: 0.25rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
     color: #333;
+    box-sizing: border-box;
+    caret-color: transparent;
 }
 
 #predict-button {
@@ -277,7 +272,11 @@ main {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    align-self: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
+
 
 #predict-button:hover {
     background-color: #444;
