@@ -55,17 +55,10 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
 
     input_df = input_df[X_train.columns]  # Reorder columns to match the training data
 
-
     predicted_bikes = bikes_model.predict(input_df)
     predicted_stands = stands_model.predict(input_df)
 
-    # for col in input_df.columns:
-    #     print(col)
-
-    print(input_df)
+    transpose = input_df.transpose()
+    print(transpose)
 
     return (f"{predicted_bikes[0]:.0f}", f"{predicted_stands[0]:.0f}")
-
-
-prediction = pickle_predict(2, 'Clouds', 'broken clouds', 280.5, 277.2, 74, 4.8, 'Weekday', 1)
-print(prediction[0], prediction[1])
