@@ -107,88 +107,89 @@ function clearEndLocation() {
 }
 
 async function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
-  let minDistance = Infinity;
-  let nearestStation = null;
-  let clickedLat = clickedLocation.lat()
-  let clickedLng = clickedLocation.lng()
-  const clickedLatLng = new google.maps.LatLng(clickedLat, clickedLng);
+  const clickedLatLng = new google.maps.LatLng(clickedLocation.lat(), clickedLocation.lng());
 
-  const distanceMatrixService = new google.maps.DistanceMatrixService();
-  const origins = [clickedLocation];
-  const destinations = stations.map(station => new google.maps.LatLng(station.position.lat, station.position.lng));
+  // Find the 20 nearest stations using the geometry spherical distance
+  const nearestStations = stations
+    .map(station => ({ station, distance: google.maps.geometry.spherical.computeDistanceBetween(clickedLatLng, new google.maps.LatLng(station.position.lat, station.position.lng)) }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 20)
+    .map(({ station }) => station);
 
+  // Use the distance matrix service to calculate the walking distance between the clicked location and the 20 nearest stations
+  const destinations = nearestStations.map(station => new google.maps.LatLng(station.position.lat, station.position.lng));
+  distanceMatrixService.getDistanceMatrix({
+    origins: [clickedLatLng],
+    destinations: destinations,
+    travelMode: google.maps.TravelMode.WALKING,
+  }, function (response, status) {
+    if (status === google.maps.DistanceMatrixStatus.OK) {
+      const distances = response.rows[0].elements.map(element => element.distance.value);
+      const minDistance = Math.min(...distances);
+      const nearestStation = nearestStations[distances.indexOf(minDistance)];
 
-  stations.forEach(station => {
-    const stationLatLng = new google.maps.LatLng(station.position.lat, station.position.lng);
-    const distance = google.maps.geometry.spherical.computeDistanceBetween(clickedLatLng, stationLatLng);
+      let currentDirectionsRenderer;
+      if (selectedInput === 'start') {
+        startBikeStation = nearestStation;
+        currentDirectionsRenderer = startJourneyDirectionsRenderer;
+      } else if (selectedInput === 'end') {
+        endBikeStation = nearestStation;
+        currentDirectionsRenderer = endJourneyDirectionsRenderer;
+      }
 
-    if (distance < minDistance) {
-      minDistance = distance;
-      nearestStation = station;
+      document.getElementById(selectedInput + '_location').value = " " + toTitleCase(nearestStation.name);
+
+      if (startJourneyDirectionsRenderer) {
+        startJourneyDirectionsRenderer.setMap(map);
+      }
+      if (endJourneyDirectionsRenderer) {
+        endJourneyDirectionsRenderer.setMap(map);
+      }
+
+      const request = {
+        origin: clickedLocation,
+        destination: new google.maps.LatLng(nearestStation.position.lat, nearestStation.position.lng),
+        travelMode: google.maps.TravelMode.WALKING,
+      };
+
+      if (directionsService && currentDirectionsRenderer) {
+        directionsService.route(request, function (response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            currentDirectionsRenderer.setDirections(response);
+
+            const markerIconsDiv = document.getElementById('marker-icons');
+            const startIcon = {
+              url: markerIconsDiv.getAttribute('data-start-icon'),
+              scaledSize: new google.maps.Size(32, 32),
+            };
+
+            const endIcon = {
+              url: markerIconsDiv.getAttribute('data-end-icon'),
+              scaledSize: new google.maps.Size(32, 32),
+            };
+
+            // Create a custom start marker
+            const leg = response.routes[0].legs[0];
+            const startMarker = new google.maps.Marker({
+              position: leg.start_location,
+              map: map,
+              icon: startIcon,
+            });
+
+            // Update directions renderer
+            currentDirectionsRenderer.setDirections(response);
+            zoomToFitRoute(startJourneyDirectionsRenderer, endJourneyDirectionsRenderer);
+          } else {
+            alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    } else {
+      alert('Distance matrix request failed due to ' + status);
     }
-
   });
-
-  if (nearestStation) {
-    let currentDirectionsRenderer;
-    if (selectedInput === 'start') {
-      startBikeStation = nearestStation;
-      currentDirectionsRenderer = startJourneyDirectionsRenderer;
-    } else if (selectedInput === 'end') {
-      endBikeStation = nearestStation;
-      currentDirectionsRenderer = endJourneyDirectionsRenderer;
-    }
-
-    // Set the value of the input box to the name of the nearest bike station
-    document.getElementById(selectedInput + '_location').value = " " + toTitleCase(nearestStation.name);
-
-    if (startJourneyDirectionsRenderer) {
-      startJourneyDirectionsRenderer.setMap(map);
-    }
-    if (endJourneyDirectionsRenderer) {
-      endJourneyDirectionsRenderer.setMap(map);
-    }
-
-    const request = {
-      origin: clickedLocation,
-      destination: new google.maps.LatLng(nearestStation.position.lat, nearestStation.position.lng),
-      travelMode: google.maps.TravelMode.WALKING,
-    };
-
-    if (directionsService && currentDirectionsRenderer) {
-      directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-          currentDirectionsRenderer.setDirections(response);
-
-          const markerIconsDiv = document.getElementById('marker-icons');
-          const startIcon = {
-            url: markerIconsDiv.getAttribute('data-start-icon'),
-            scaledSize: new google.maps.Size(32, 32),
-          };
-
-          const endIcon = {
-            url: markerIconsDiv.getAttribute('data-end-icon'),
-            scaledSize: new google.maps.Size(32, 32),
-          };
-
-          // Create a custom start marker
-          const leg = response.routes[0].legs[0];
-          const startMarker = new google.maps.Marker({
-            position: leg.start_location,
-            map: map,
-            icon: startIcon,
-          });
-
-          // Update directions renderer
-          currentDirectionsRenderer.setDirections(response);
-          zoomToFitRoute(startJourneyDirectionsRenderer, endJourneyDirectionsRenderer);
-        } else {
-          alert('Directions request failed due to ' + status);
-        }
-      });
-    }
-  }
 }
+
 
 function zoomToFitRoute(startJourneyDirectionsRenderer, endJourneyDirectionsRenderer) {
   const bounds = new google.maps.LatLngBounds();
