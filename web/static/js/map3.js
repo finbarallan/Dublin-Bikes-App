@@ -4,6 +4,7 @@ let selectedInput = null;
 let startJourneyDirectionsRenderer;
 let endJourneyDirectionsRenderer;
 let directionsService;
+let distanceMatrixService;
 
 function initMap() {
   // Set the map options
@@ -37,6 +38,9 @@ function initMap() {
   // Initialize the directions service
   directionsService = new google.maps.DirectionsService();
 
+  // Initialize the distance matrix service
+  distanceMatrixService = new google.maps.DistanceMatrixService();
+
   fetch('https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=a572dc37b128fb280c9e1621093640367863e160')
     .then(response => response.json())
     .then(data => {
@@ -65,6 +69,9 @@ function initMap() {
 
           // Open the info window on the clicked marker
           infoWindow.open(map, marker);
+
+          // Call the onMarkerClick function with the station number
+          onMarkerClick(station.number);
         });
       });
 
@@ -99,12 +106,17 @@ function clearEndLocation() {
   document.getElementById('end_location').value = '';
 }
 
-function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
+async function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
   let minDistance = Infinity;
   let nearestStation = null;
   let clickedLat = clickedLocation.lat()
   let clickedLng = clickedLocation.lng()
   const clickedLatLng = new google.maps.LatLng(clickedLat, clickedLng);
+
+  const distanceMatrixService = new google.maps.DistanceMatrixService();
+  const origins = [clickedLocation];
+  const destinations = stations.map(station => new google.maps.LatLng(station.position.lat, station.position.lng));
+
 
   stations.forEach(station => {
     const stationLatLng = new google.maps.LatLng(station.position.lat, station.position.lng);
@@ -114,6 +126,8 @@ function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
       minDistance = distance;
       nearestStation = station;
     }
+
+
   });
 
   if (nearestStation) {
@@ -151,7 +165,7 @@ function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
             url: markerIconsDiv.getAttribute('data-start-icon'),
             scaledSize: new google.maps.Size(32, 32),
           };
-        
+
           const endIcon = {
             url: markerIconsDiv.getAttribute('data-end-icon'),
             scaledSize: new google.maps.Size(32, 32),
@@ -206,7 +220,7 @@ function zoomToFitRoute(startJourneyDirectionsRenderer, endJourneyDirectionsRend
 }
 
 function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt) {
+  return str.replace(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }

@@ -167,6 +167,7 @@ main {
     box-sizing: border-box;
     font-size: 16px;
     padding: 1px;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 }
 
 .weather-container {
@@ -229,6 +230,7 @@ main {
     box-sizing: border-box;
     font-size: 16px;
     padding: 1px;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 }
 
 .prediction-container h2 {
@@ -259,7 +261,7 @@ main {
     font-size: 16px;
     color: #333;
     box-sizing: border-box;
-    caret-color: transparent;
+    caret-color: #333;
 }
 
 #predict-button {

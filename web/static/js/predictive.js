@@ -29,7 +29,6 @@ document.getElementById('prediction-form').addEventListener('submit', function (
             const forecastData = weatherData.list.reduce((closest, item) => {
                 const itemDate = new Date(item.dt_txt);
                 const timeDifference = Math.abs(itemDate.getTime() - targetDateTime.getTime());
-
                 if (closest === null || Math.abs(new Date(closest.dt_txt).getTime() - targetDateTime.getTime()) > timeDifference) {
                     return item;
                 }
@@ -42,13 +41,20 @@ document.getElementById('prediction-form').addEventListener('submit', function (
             if (forecastData) {
                 const weather = forecastData.weather[0].main;
                 const description = forecastData.weather[0].description;
-                const temp = forecastData.main.temp;
-                const feelsLike = forecastData.main.feels_like;
+                const temp = forecastData.main.temp + 273.15;
+                const feelsLike = forecastData.main.feels_like + 273.15;
                 const humidity = forecastData.main.humidity;
                 const windSpeed = forecastData.wind.speed;
 
                 // Create FormData object and append all required data
+                let formDay = targetDateTime.getDay()
+                console.log(formDay)
+                let formHour = targetDateTime.getHours()
+                console.log(formHour)
+                
                 const formData = new FormData(document.getElementById('prediction-form'));
+                formData.set('date', formDay);
+                formData.set('hour', formHour);
                 formData.append('weather', weather);
                 formData.append('description', description);
                 formData.append('temp', temp);
@@ -57,10 +63,8 @@ document.getElementById('prediction-form').addEventListener('submit', function (
                 formData.append('wind_speed', windSpeed);
 
                 // Log the contents of formData
-                console.log(typeof(formData));
                 const formDataArray = Array.from(formData.entries());
                 console.log('FormData contents:', formDataArray);
-
 
                 // Send POST request to Flask route
                 return fetch('/predict', {
@@ -83,3 +87,8 @@ document.getElementById('prediction-form').addEventListener('submit', function (
             console.error('Error:', error);
         });
 });
+
+function onMarkerClick(stationNumber) {
+    // Set the value of the 'station-number' input box to the stationNumber
+    document.getElementById('station-number').value = stationNumber;
+}

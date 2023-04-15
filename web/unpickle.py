@@ -6,6 +6,11 @@ from datetime import datetime
 def pickle_predict(station_number, weather, description, temp, feels_like, humidity, wind_speed, day, hour):
     station_number = station_number  # replace with the desired station number
 
+    if int(day) >=1 or int(day) <= 5:
+        day = 'Weekday'
+    else:
+        day = 'Weekend'
+
     # Prepare input data for prediction (replace with actual values)
     input_data = {
         'Weather': weather,
@@ -62,3 +67,7 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
     print(transpose)
 
     return (f"{predicted_bikes[0]:.0f}", f"{predicted_stands[0]:.0f}")
+
+# for i in range(1,24):
+#     prediction = pickle_predict(10, 'Clouds', 'broken clouds', 280.5, 277.2, 74, 4.8, 'Weekday', i)
+#     print(prediction[0], prediction[1])

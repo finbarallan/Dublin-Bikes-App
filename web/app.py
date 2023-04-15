@@ -82,7 +82,7 @@ def predict():
     feels_like = request.form.get('feels_like')
     humidity = request.form.get('humidity')
     wind_speed = request.form.get('wind_speed')
-    day = request.form.get('day')
+    day = request.form.get('date')
     hour = request.form.get('hour')
 
     # Call pickle_predict() function with user input values

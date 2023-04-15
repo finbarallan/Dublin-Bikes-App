@@ -1,2 +1,2 @@
-    for col in input_df.columns:
-        print(col)
+
+def close_connection(exception):
