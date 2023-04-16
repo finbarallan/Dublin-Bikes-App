@@ -19,7 +19,7 @@ header h1 {
 nav {
     background-color: #444;
     padding: 0.75rem 1rem;
-    margin-bottom: -0.5rem;
+    /* margin-bottom: -0.5rem; */
     /* Adjust this value to your preference */
 }
 
@@ -368,9 +368,9 @@ main {
     position: absolute;
     bottom: 10px;
     right: 10px;
-  }
+}
 
-  .learn-more-button {
+.learn-more-button {
     position: absolute;
     right: 1rem;
     bottom: 1rem;
@@ -381,10 +381,214 @@ main {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
-  }
-  
-  .learn-more-button:hover {
+}
+
+.learn-more-button:hover {
     background-color: #0056b3;
     color: #fff;
     text-decoration: none;
+}
+
+/* Add the following rules */
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    /* Add this line to center text */
+}
+
+.row {
+    margin-bottom: 1rem;
+}
+
+.list-container {
+    width: 50%;
+    /* Set the width of the container */
+    margin: 0 auto;
+    /* Center the container */
+}
+
+.list-container input[type="text"] {
+    width: 72%;
+    /* Set the width of the input field to 100% of its container */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+}
+
+ul#list {
+    list-style-type: none;
+    padding: 0;
+    width: 72%;
+    /* Add this line to set the list width */
+    margin: 0 auto;
+    /* Add this line to center the list */
+}
+
+ul#list li {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+ul#list li:hover {
+    background-color: #e0e0e0;
+}
+
+ul#list li a {
+    text-decoration: none;
+    color: #333;
+}
+
+@media (max-width: 767px) {
+
+    /* Adjust the list-container width on smaller screens */
+    .list-container {
+        width: 100%;
+    }
+}
+
+/* Style for loader */
+.loader {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
   }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.specific-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.row {
+    margin-bottom: 1rem;
+}
+
+#station_title {
+    margin: 0;
+}
+
+#station_info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.station-info-box {
+    width: 30%;
+    margin: 0 1rem 1rem 1rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.station-info-box h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.station-info-box p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.station-info-box span {
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .station-info-box {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+#loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.specific-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    /* Add this line */
+}
+
+.specific-container:before {
+    /* Add this pseudo-element */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Change the opacity and color as desired */
+    z-index: 1;
+    /* Set a higher z-index than the loader */
+    display: none;
+}
+
+#loader.show {
+    display: block;
+}
+
+.specific-container.show:before {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.8);
+}
