@@ -81,8 +81,29 @@
           </form>
         </div>
       </div>
-      <div class="map-container">
-        <div id="map"></div>
+      <div class="right-side">
+        <div class="map-container">
+          <div id="map"></div>
+        </div>
+        <div class="prediction-results-container">
+          <h2>My Journey Summary</h2>
+          <div class="results-container">
+            <div class="result-section">
+              <h3>Predicted Weather</h3>
+              <div class="icon-placeholder" id="weather-result">☂️</div>
+              <img id="predictive-icon" style="display:none" src="{{ url_for('static', filename='img/start.png') }}">
+            </div>
+            <div class="result-section">
+              <h3>Predicted Bikes</h3>
+              <div class="icon-placeholder" id="bike-result">🚲</div>
+            </div>
+            <div class="result-section">
+              <h3>Predicted Spaces</h3>
+              <div class="icon-placeholder" id="space-result">🅿️</div>
+            </div>
+          </div>
+          <a id="learn-more-button" class="learn-more-button" href="{{ url_for('all_stations') }}">Learn More</a>
+        </div>
       </div>
     </div>
   </main>

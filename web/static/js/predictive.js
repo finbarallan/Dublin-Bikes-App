@@ -1,3 +1,5 @@
+var iconCode = null;
+
 document.getElementById('prediction-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -45,6 +47,7 @@ document.getElementById('prediction-form').addEventListener('submit', function (
                 const feelsLike = forecastData.main.feels_like + 273.15;
                 const humidity = forecastData.main.humidity;
                 const windSpeed = forecastData.wind.speed;
+                iconCode = forecastData.weather[0].icon;
 
                 // Create FormData object and append all required data
                 let formDay = targetDateTime.getDay()
@@ -78,10 +81,11 @@ document.getElementById('prediction-form').addEventListener('submit', function (
         .then(response => response.json())
         .then(data => {
             // Display predicted values in HTML
-            document.getElementById('prediction-results').innerHTML = `
-                <p>Predicted available bikes: ${data.available_bikes}</p>
-                <p>Predicted available stands: ${data.available_stands}</p>
-            `;
+            document.getElementById('weather-result').innerHTML = ``;
+            document.getElementById('predictive-icon').style = `display:block;`;
+            document.getElementById('predictive-icon').src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+            document.getElementById('bike-result').innerHTML = `${data.available_bikes}`;
+            document.getElementById('space-result').innerHTML = `${data.available_stands}`;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -92,3 +96,22 @@ function onMarkerClick(stationNumber) {
     // Set the value of the 'station-number' input box to the stationNumber
     document.getElementById('station-number').value = stationNumber;
 }
+
+$(document).ready(function () {
+    const learnMoreButton = $("#learn-more-button");
+    const stationNumberInput = $("#station-number");
+    const predictButton = $("#predict-button");
+    
+    predictButton.on("click", function (event) {
+      
+      const stationNumber = stationNumberInput.val();
+      const isValidStationNumber = stationNumber.match(/^(?!118$|119$)([1-9][0-9]?|1[0-1][0-9])$/);
+  
+      if (isValidStationNumber) {
+        learnMoreButton.attr("href", "/station/" + stationNumber);
+      } else {
+        learnMoreButton.attr("href", "/station/all");
+      }
+    });
+  });
+  
