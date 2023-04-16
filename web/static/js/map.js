@@ -1,3 +1,6 @@
+let startMarker;
+let endMarker;
+let inputClicked = false;
 let startBikeStation = null;
 let endBikeStation = null;
 let selectedInput = null;
@@ -22,7 +25,7 @@ function initMap() {
   startJourneyDirectionsRenderer = new google.maps.DirectionsRenderer({
     map: map,
     suppressMarkers: true,
-    polylineOptions: { strokeColor: 'blue' },
+    polylineOptions: { strokeColor: '#a7c7e7' },
     preserveViewport: true,
   });
   startJourneyDirectionsRenderer.setMap(map);
@@ -30,7 +33,7 @@ function initMap() {
   endJourneyDirectionsRenderer = new google.maps.DirectionsRenderer({
     map: map,
     suppressMarkers: true,
-    polylineOptions: { strokeColor: 'red' },
+    polylineOptions: { strokeColor: '#ff6961' },
     preserveViewport: true,
   });
   endJourneyDirectionsRenderer.setMap(map);
@@ -64,7 +67,8 @@ function initMap() {
           infoWindow.setContent(
             '<h3>' + station.name + '</h3>' +
             '<p>Available bikes: ' + station.available_bikes + '</p>' +
-            '<p>Available parking spaces: ' + station.available_bike_stands + '</p>'
+            '<p>Available parking spaces: ' + station.available_bike_stands + '</p>' +
+            '<p><a href="/station/' + station.number + '">View Station Details</a></p>'
           );
 
           // Open the info window on the clicked marker
@@ -83,19 +87,31 @@ function initMap() {
       // Attach event listeners to the input boxes and clear buttons
       document.getElementById('start_location').addEventListener('click', selectStartLocation);
       document.getElementById('end_location').addEventListener('click', selectEndLocation);
+
+      map.addListener('click', function (event) {
+        handleMapClick(event, data);
+      });
     });
 }
 
 function handleMapClick(event, data) {
-  findNearestBikeStationAndDisplayRoute(event.latLng, data);
+  if (inputClicked) {
+    findNearestBikeStationAndDisplayRoute(event.latLng, data);
+    inputClicked = false;
+    resetCursor();
+  }
 }
 
 function selectStartLocation() {
   selectedInput = 'start';
+  inputClicked = true;
+  map.setOptions({ draggableCursor: 'pointer' });
 }
 
 function selectEndLocation() {
   selectedInput = 'end';
+  inputClicked = true;
+  map.setOptions({ draggableCursor: 'pointer' });
 }
 
 function clearStartLocation() {
@@ -109,14 +125,14 @@ function clearEndLocation() {
 async function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) {
   const clickedLatLng = new google.maps.LatLng(clickedLocation.lat(), clickedLocation.lng());
 
-  // Find the 20 nearest stations using the geometry spherical distance
+  // Find the 5 nearest stations using the geometry spherical distance
   const nearestStations = stations
     .map(station => ({ station, distance: google.maps.geometry.spherical.computeDistanceBetween(clickedLatLng, new google.maps.LatLng(station.position.lat, station.position.lng)) }))
     .sort((a, b) => a.distance - b.distance)
-    .slice(0, 20)
+    .slice(0, 5)
     .map(({ station }) => station);
 
-  // Use the distance matrix service to calculate the walking distance between the clicked location and the 20 nearest stations
+  // Use the distance matrix service to calculate the walking distance between the clicked location and the 5 nearest stations
   const destinations = nearestStations.map(station => new google.maps.LatLng(station.position.lat, station.position.lng));
   distanceMatrixService.getDistanceMatrix({
     origins: [clickedLatLng],
@@ -156,26 +172,40 @@ async function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) 
         directionsService.route(request, function (response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             currentDirectionsRenderer.setDirections(response);
-
+    
             const markerIconsDiv = document.getElementById('marker-icons');
             const startIcon = {
               url: markerIconsDiv.getAttribute('data-start-icon'),
               scaledSize: new google.maps.Size(32, 32),
             };
-
+    
             const endIcon = {
               url: markerIconsDiv.getAttribute('data-end-icon'),
               scaledSize: new google.maps.Size(32, 32),
             };
-
+    
             // Create a custom start marker
             const leg = response.routes[0].legs[0];
-            const startMarker = new google.maps.Marker({
+            const newMarker = new google.maps.Marker({
               position: leg.start_location,
               map: map,
-              icon: startIcon,
+              icon: selectedInput === 'start' ? startIcon : endIcon,
             });
-
+    
+            // Remove the previous marker if it exists
+            if (selectedInput === 'start' && startMarker) {
+              startMarker.setMap(null);
+            } else if (selectedInput === 'end' && endMarker) {
+              endMarker.setMap(null);
+            }
+    
+            // Update the current marker
+            if (selectedInput === 'start') {
+              startMarker = newMarker;
+            } else if (selectedInput === 'end') {
+              endMarker = newMarker;
+            }
+    
             // Update directions renderer
             currentDirectionsRenderer.setDirections(response);
             zoomToFitRoute(startJourneyDirectionsRenderer, endJourneyDirectionsRenderer);
@@ -184,8 +214,6 @@ async function findNearestBikeStationAndDisplayRoute(clickedLocation, stations) 
           }
         });
       }
-    } else {
-      alert('Distance matrix request failed due to ' + status);
     }
   });
 }
@@ -226,6 +254,30 @@ function toTitleCase(str) {
   });
 }
 
+function resetCursor() {
+  map.setOptions({ draggableCursor: null });
+}
+
+function clearJourney() {
+  // Clear input boxes
+  document.getElementById("start_location").value = "";
+  document.getElementById("end_location").value = "";
+
+  // Clear markers
+  if (startMarker) {
+    startMarker.setMap(null);
+    startMarker = null;
+  }
+  if (endMarker) {
+    endMarker.setMap(null);
+    endMarker = null;
+  }
+
+  // Clear directions
+  if (directionsRenderer) {
+    directionsRenderer.setDirections({ routes: [] });
+  }
+}
 
 // Attach an event listener to the document to listen for the Escape key
 document.addEventListener('keydown', function (event) {
@@ -234,22 +286,14 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
-// Attach event listeners to the input boxes and clear buttons
+// Remove the lines that temporarily hide the end journey directions when selecting the begin journey input and vice versa
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('start_location').addEventListener('click', function () {
     selectStartLocation();
     clearStartLocation();
-    // Remove the following lines:
-    if (endJourneyDirectionsRenderer) {
-      endJourneyDirectionsRenderer.setMap(null);
-    }
   });
   document.getElementById('end_location').addEventListener('click', function () {
     selectEndLocation();
     clearEndLocation();
-    // Remove the following lines:
-    if (startJourneyDirectionsRenderer) {
-      startJourneyDirectionsRenderer.setMap(null);
-    }
   });
 });
