@@ -26,7 +26,7 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
     input_df = pd.DataFrame([input_data])
 
     # Load the cleaned_training_dataset_2.csv file
-    df = pd.read_csv('cleaned_training_dataset_2.csv')
+    df = pd.read_csv('machine-learning/cleaned_training_dataset_2.csv')
 
     # Filter the data for the specific station
     df_station = df[df['Station'] == int(station_number)]
