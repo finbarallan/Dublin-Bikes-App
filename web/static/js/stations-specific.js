@@ -44,11 +44,11 @@ function displayStationInfo() {
 }
 
 // inserts availability data onto the page 
-function populateCurrentAvailability(header, key, availability, stationInfoList){
+function populateCurrentAvailability(header, key, availability, stationInfoList) {
     // creates container for availability data
     var availabilityContainer = document.createElement("div");
     availabilityContainer.className = "col-sm-6 availability_data";
-    
+
     //creates header for availability data 
     var availabilityHeader = document.createElement("p");
     availabilityHeader.innerHTML = header;
@@ -62,4 +62,94 @@ function populateCurrentAvailability(header, key, availability, stationInfoList)
     availabilityContainer.appendChild(availabilityCount);
     stationInfoList.appendChild(availabilityContainer);
 
+}
+
+// Load the Visualization API and the corechart package.
+google.charts.load('current', { 'packages': ['corechart'] });
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawBikeChart);
+
+function drawBikeChart() {
+    // Fetch bike availability data from server
+    $.getJSON('/bike-info/' + station_id, function (response) {
+        var bikeData = response;
+
+        // Create a DataTable object
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day of Week');
+        data.addColumn('number', 'Average Bikes');
+
+        // Calculate average number of bikes available for each day of the week
+        var dayOfWeekData = Array(7).fill(0);
+        var dayOfWeekCount = Array(7).fill(0); // New array to keep track of count for each day
+        for (var i = 0; i < bikeData.length; i++) {
+            var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds
+            var dayOfWeek = timestamp.getDay();
+            dayOfWeekData[dayOfWeek] += bikeData[i].available_bikes;
+            dayOfWeekCount[dayOfWeek]++; // Increment count for each day
+        }
+        dayOfWeekData.push(dayOfWeekData.shift());
+        dayOfWeekCount.push(dayOfWeekCount.shift());
+        var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        for (var j = 0; j < dayOfWeekData.length; j++) {
+            data.addRow([weekdays[j], dayOfWeekData[j] / dayOfWeekCount[j]]); // Divide by count for each day
+        }
+        // Create and draw the chart
+        var options = {
+            title: 'Average Bikes Available by Day of Week for Station ' + station_id,
+            hAxis: { title: 'Day of Week' },
+            vAxis: { title: 'Average Bikes' },
+            legend: { position: 'none' },
+            bar: { groupWidth: '80%' }
+        };
+
+        var chartDiv = document.getElementById('bike_chart_div');
+        //chartDiv.style.width = '60%';
+        var chart = new google.visualization.ColumnChart(document.getElementById('bike_chart_div'));
+        chart.draw(data, options);
+    });
+}
+
+google.charts.setOnLoadCallback(drawStandChart);
+
+function drawStandChart() {
+    // Fetch bike availability data from server
+    $.getJSON('/bike-info/' + station_id, function (response) {
+        var standData = response;
+
+        // Create a DataTable object
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day of Week');
+        data.addColumn('number', 'Average Stands');
+
+        // Calculate average number of bikes available for each day of the week
+        var dayOfWeekData = Array(7).fill(0);
+        var dayOfWeekCount = Array(7).fill(0); // New array to keep track of count for each day
+        for (var i = 0; i < standData.length; i++) {
+            var timestamp = new Date(standData[i].last_update * 1000); // Convert seconds to milliseconds
+            var dayOfWeek = timestamp.getDay();
+            dayOfWeekData[dayOfWeek] += standData[i].available_bike_stands;
+            dayOfWeekCount[dayOfWeek]++; // Increment count for each day
+        }
+        dayOfWeekData.push(dayOfWeekData.shift());
+        dayOfWeekCount.push(dayOfWeekCount.shift());
+        var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        for (var j = 0; j < dayOfWeekData.length; j++) {
+            data.addRow([weekdays[j], dayOfWeekData[j] / dayOfWeekCount[j]]); // Divide by count for each day
+        }
+        // Create and draw the chart
+        var options = {
+            title: 'Average Stands Available by Day of Week for Station ' + station_id,
+            hAxis: { title: 'Day of Week' },
+            vAxis: { title: 'Average Stands' },
+            legend: { position: 'none' },
+            bar: { groupWidth: '80%' }
+        };
+
+        var chartDiv = document.getElementById('stand_chart_div');
+        //chartDiv.style.width = '60%';
+        var chart = new google.visualization.ColumnChart(document.getElementById('stand_chart_div'));
+        chart.draw(data, options);
+    });
 }
