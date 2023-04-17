@@ -1,0 +1,15 @@
+name: comp30830
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - sqlalchemy
+  - requests
+  - ipython
+  - jupyterlab
+  - numpy
+  - pandas
+  - mysqlclient
+  - flask
+  - scikit-learn==1.2.2
+prefix: /opt/anaconda3/envs/comp30830

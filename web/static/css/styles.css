@@ -566,7 +566,6 @@ ul#list li a {
     border-radius: 10px;
     text-align: center;
     position: relative;
-    /* Add this line */
 }
 
 .specific-container:before {

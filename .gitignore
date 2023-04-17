@@ -1,1 +1,6 @@
 *.pem
+/backup-db
+/backup-files
+/img
+.csv
+.zip
