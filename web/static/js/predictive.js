@@ -79,6 +79,7 @@ document.getElementById('prediction-form').addEventListener('submit', function (
             }
             console.log("predict was fetched from slash predict")
         })
+        console.log("about to call json method on response")
         .then(response => response.json())
         .then(data => {
             // Display predicted values in HTML
