@@ -1,7 +1,10 @@
+import os
+import sys
 import pickle
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from datetime import datetime
+
 
 def pickle_predict(station_number, weather, description, temp, feels_like, humidity, wind_speed, day, hour):
     station_number = station_number  # replace with the desired station number
@@ -25,8 +28,13 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
 
     input_df = pd.DataFrame([input_data])
 
+    # Replace 'unique_folder_or_file' with a unique top-level folder name or specific file or folder in your project root
+    project_root = find_project_root('Group-26')
+
     # Load the cleaned_training_dataset_2.csv file
-    df = pd.read_csv('machine-learning/cleaned_training_dataset_2.csv')
+    training_data_path = os.path.join(project_root, 'Group-26/machine-learning/cleaned_training_dataset_2.csv')
+    df = pd.read_csv(training_data_path)
+    print("#3", training_data_path)
 
     # Filter the data for the specific station
     df_station = df[df['Station'] == int(station_number)]
@@ -43,8 +51,8 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
     cat_columns = ['Weather', 'Description', 'Day', 'Hour']
     input_df = pd.get_dummies(input_df, columns=cat_columns)
 
-    bikes_model_filename = f"machine-learning/pickle-files/bikes_station_{station_number}.pkl"
-    stands_model_filename = f"machine-learning/pickle-files/stands_station_{station_number}.pkl"
+    bikes_model_filename = os.path.join(project_root, f"Group-26/machine-learning/pickle-files/bikes_station_{station_number}.pkl")
+    stands_model_filename = os.path.join(project_root, f"Group-26/machine-learning/pickle-files/stands_station_{station_number}.pkl")
 
     bikes_model = pickle.load(open(bikes_model_filename, 'rb'))
     stands_model = pickle.load(open(stands_model_filename, 'rb'))
@@ -68,6 +76,15 @@ def pickle_predict(station_number, weather, description, temp, feels_like, humid
 
     return (f"{predicted_bikes[0]:.0f}", f"{predicted_stands[0]:.0f}")
 
-# for i in range(1,24):
-#     prediction = pickle_predict(10, 'Clouds', 'broken clouds', 280.5, 277.2, 74, 4.8, 'Weekday', i)
-#     print(prediction[0], prediction[1])
+def find_project_root(search_file_or_folder):
+    current_path = os.path.abspath(os.getcwd())
+
+    while True:
+        if os.path.exists(os.path.join(current_path, search_file_or_folder)):
+            return current_path
+
+        parent_path = os.path.dirname(current_path)
+
+        if parent_path == current_path:
+            raise FileNotFoundError(f"Could not find {search_file_or_folder} in any parent directories.")
+        current_path = parent_path
