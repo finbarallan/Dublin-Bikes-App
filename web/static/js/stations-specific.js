@@ -68,7 +68,11 @@ function populateCurrentAvailability(header, key, availability, stationInfoList)
 google.charts.load('current', { 'packages': ['corechart'] });
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawBikeChart);
+google.charts.setOnLoadCallback(function () {
+    drawBikeChart();
+    drawStandChart();
+    drawBikeHourChart();
+});
 
 function drawBikeChart() {
     // Fetch bike availability data from server
@@ -153,3 +157,55 @@ function drawStandChart() {
         chart.draw(data, options);
     });
 }
+
+
+
+
+
+function drawBikeHourChart() {
+  // Fetch bike availability data from server
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+
+    // Create a DataTable object
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+
+    // Calculate average number of bikes available for each hour of Monday
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0); // New array to keep track of count for each hour
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 1) { // Only consider Monday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++; // Increment count for each hour
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+
+    // Create and draw the chart
+    var options = {
+      title: 'Average Bikes Available by Hour of Monday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+
+    var chartDiv = document.getElementById('bike_hour_chart_div');
+    var chart = new google.visualization.ColumnChart(chartDiv);
+    chart.draw(data, options);
+  });
+}
+
+
