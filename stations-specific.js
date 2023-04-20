@@ -188,20 +188,11 @@ function drawBikeHourMonChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-  title: 'Average Bikes Available by Hour of Tuesday',
+  title: 'Average Bikes Available by Hour of Monday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_mon'));
     chart.draw(data, options);
@@ -233,21 +224,12 @@ function drawBikeHourTuesChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-    var options = {
+  var options = {
   title: 'Average Bikes Available by Hour of Tuesday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_tues'));
     chart.draw(data, options);
@@ -279,21 +261,12 @@ function drawBikeHourWedChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-   var options = {
+ var options = {
   title: 'Average Bikes Available by Hour of Wednesday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_wed'));
     chart.draw(data, options);
@@ -325,21 +298,12 @@ function drawBikeHourThurChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-    var options = {
+var options = {
   title: 'Average Bikes Available by Hour of Thursday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_thur'));
     chart.draw(data, options);
@@ -371,21 +335,12 @@ function drawBikeHourFriChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-   var options = {
+var options = {
   title: 'Average Bikes Available by Hour of Friday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_fri'));
     chart.draw(data, options);
@@ -417,21 +372,12 @@ function drawBikeHourSatChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-    var options = {
+ var options = {
   title: 'Average Bikes Available by Hour of Saturday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sat'));
     chart.draw(data, options);
@@ -463,21 +409,12 @@ function drawBikeHourSunChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-    var options = {
+var options = {
   title: 'Average Bikes Available by Hour of Sunday',
   hAxis: { title: 'Hour' },
   vAxis: { title: 'Average Bikes' },
   legend: { position: 'none' },
-  bar: { groupWidth: '80%', color: '#00f' },
-  series: {
-    0: { // set options for series 0
-      strokeColor: '#00f',
-      strokeOpacity: 0.6,
-      strokeWidth: 8,
-      fillColor: '#BC5679',
-      fillOpacity: 0.2
-    }
-  }
+  bar: { groupWidth: '80%', fillColor: '#00f', strokeColor: '#00f', strokeOpacity: 0.8, fillOpacity: 0.2, strokeWidth: 8},
 };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sun'));
     chart.draw(data, options);
