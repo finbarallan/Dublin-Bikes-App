@@ -77,18 +77,15 @@ document.getElementById('prediction-form').addEventListener('submit', function (
             } else {
                 console.error('No matching weather data found for the specified date and hour.');
             }
-            console.log("predict was fetched from slash predict")
         })
         .then(response => response.json())
         .then(data => {
             // Display predicted values in HTML
-            console.log("HTML elements are about to be accessed")
             document.getElementById('weather-result').innerHTML = ``;
             document.getElementById('predictive-icon').style = `display:block;`;
             document.getElementById('predictive-icon').src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
             document.getElementById('bike-result').innerHTML = `${data.available_bikes}`;
             document.getElementById('space-result').innerHTML = `${data.available_stands}`;
-            console.log("HTML elements have been accessed")
         })
         .catch(error => {
             console.error('Error:', error);

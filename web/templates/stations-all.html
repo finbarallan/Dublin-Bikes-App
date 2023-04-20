@@ -5,39 +5,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dublin Bike Stations</title>
+    <title>Stations</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="img\favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/marker.png') }}">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+</head>
 
 <body>
     <header>
-        <h1>Dublin Bike Stations</h1>
+        <div class="logo1">
+            <a href="{{ url_for('index') }}" class="logo1"><img
+                    src="{{ url_for('static', filename='img/logo_notext.png') }}" alt="logo1" />
+            </a>
+        </div>
+        <h1>Dublin Bikes Finder</h1>
+        <div class="logo2">
+            <a href="https://www.dublincity.ie/residential" target="_blank">
+                <img src="{{ url_for('static', filename='img/logo-contractor.png') }}" alt="logo2" />
+            </a>
+        </div>
     </header>
     <nav>
         <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('all_stations') }}">Stations</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li>
+                <div class="nav-item">
+                    <img src="{{ url_for('static', filename='img/availablebikeswhite.png') }}" alt="Image 1">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-item">
+                    <img src="{{ url_for('static', filename='img/bikestandswhite.png') }}" alt="Image 2">
+                    <a href="{{ url_for('all_stations') }}">Stations</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-item">
+                    <img src="{{ url_for('static', filename='img/aboutwhite.png') }}" alt="Image 3">
+                    <a href="{{ url_for('about') }}">About</a>
+                </div>
+            </li>
         </ul>
     </nav>
+
     <!-- reference -->
     <div id="container">
-        <div class="list-container"> <!--added during chart work -->
+        <div class="list-container">
+            <!--added during chart work -->
             <div class="row">
                 <input type="text" id="input" onkeyup="filterStations()" placeholder="Find Stations">
             </div>
-        
+
             <div class="row">
                 <ul id="list"></ul>
             </div>
-        </div> <!--added during chart work -->
+        </div>
+        <!--added during chart work -->
     </div>
 
     <!-- Code to get station information -->
     <script src="{{ url_for('static', filename='js/stations-all.js') }}"></script>
-    <script>addStations()</script>
+    <script>
+        addStations()
+    </script>
 </body>
 
 </html>
