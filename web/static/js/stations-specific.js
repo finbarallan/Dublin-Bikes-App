@@ -71,7 +71,13 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(function () {
     drawBikeChart();
     drawStandChart();
-    drawBikeHourChart();
+    drawBikeHourMonChart();
+    drawBikeHourTuesChart();
+    drawBikeHourWedChart();
+    drawBikeHourThurChart();
+    drawBikeHourFriChart();
+    drawBikeHourSatChart();
+    drawBikeHourSunChart();
 });
 
 function drawBikeChart() {
@@ -115,8 +121,6 @@ function drawBikeChart() {
     });
 }
 
-google.charts.setOnLoadCallback(drawStandChart);
-
 function drawStandChart() {
     // Fetch bike availability data from server
     $.getJSON('/bike-info/' + station_id, function (response) {
@@ -158,31 +162,22 @@ function drawStandChart() {
     });
 }
 
-
-
-
-
-function drawBikeHourChart() {
-  // Fetch bike availability data from server
+function drawBikeHourMonChart() {
   $.getJSON('/bike-info/' + station_id, function(response) {
     var bikeData = response;
-
-    // Create a DataTable object
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Hour');
     data.addColumn('number', 'Average Bikes');
-
-    // Calculate average number of bikes available for each hour of Monday
     var hourOfDayData = Array(24).fill(0);
-    var hourOfDayCount = Array(24).fill(0); // New array to keep track of count for each hour
+    var hourOfDayCount = Array(24).fill(0);
     for (var i = 0; i < bikeData.length; i++) {
-      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
       var dayOfWeek = timestamp.getDay();
       var hourOfDay = timestamp.getHours();
       
       if (dayOfWeek == 1) { // Only consider Monday
         hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
-        hourOfDayCount[hourOfDay]++; // Increment count for each hour
+        hourOfDayCount[hourOfDay]++;
       }
     }
     var hours = [];
@@ -192,8 +187,6 @@ function drawBikeHourChart() {
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
-
-    // Create and draw the chart
     var options = {
       title: 'Average Bikes Available by Hour of Monday for Station ' + station_id,
       hAxis: { title: 'Hour' },
@@ -201,11 +194,230 @@ function drawBikeHourChart() {
       legend: { position: 'none' },
       bar: { groupWidth: '80%' }
     };
-
-    var chartDiv = document.getElementById('bike_hour_chart_div');
-    var chart = new google.visualization.ColumnChart(chartDiv);
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_mon'));
     chart.draw(data, options);
   });
 }
 
+function drawBikeHourTuesChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 2) { // Only consider Tuesday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Tuesday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_tues'));
+    chart.draw(data, options);
+  });
+}
+
+function drawBikeHourWedChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 3) { // Only consider Wednesday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Wednesday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_wed'));
+    chart.draw(data, options);
+  });
+}
+
+function drawBikeHourThurChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 4) { // Only consider Thursday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Thursday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_thur'));
+    chart.draw(data, options);
+  });
+}
+
+function drawBikeHourFriChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 5) { // Only consider Friday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Friday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_fri'));
+    chart.draw(data, options);
+  });
+}
+
+function drawBikeHourSatChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 6) { // Only consider Saturday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Saturday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sat'));
+    chart.draw(data, options);
+  });
+}
+
+function drawBikeHourSunChart() {
+  $.getJSON('/bike-info/' + station_id, function(response) {
+    var bikeData = response;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Hour');
+    data.addColumn('number', 'Average Bikes');
+    var hourOfDayData = Array(24).fill(0);
+    var hourOfDayCount = Array(24).fill(0);
+    for (var i = 0; i < bikeData.length; i++) {
+      var timestamp = new Date(bikeData[i].last_update * 1000); // Convert seconds to milliseconds for Date()
+      var dayOfWeek = timestamp.getDay();
+      var hourOfDay = timestamp.getHours();
+      
+      if (dayOfWeek == 0) { // Only consider Sunday
+        hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
+        hourOfDayCount[hourOfDay]++;
+      }
+    }
+    var hours = [];
+    for (var i = 0; i < 24; i++) {
+      hours.push(i);
+    }
+    for (var j = 0; j < hourOfDayData.length; j++) {
+      data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
+    }
+    var options = {
+      title: 'Average Bikes Available by Hour of Sunday for Station ' + station_id,
+      hAxis: { title: 'Hour' },
+      vAxis: { title: 'Average Bikes' },
+      legend: { position: 'none' },
+      bar: { groupWidth: '80%' }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sun'));
+    chart.draw(data, options);
+  });
+}
 

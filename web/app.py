@@ -72,6 +72,11 @@ def all_stations():
 def specific_stations(station_id):
     return render_template("stations-specific.html", station_id=station_id)
 
+#about means front end
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route('/predict', methods=['POST'])
 def predict():
     # Get user input values from request object

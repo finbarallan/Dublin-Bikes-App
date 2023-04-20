@@ -47,12 +47,24 @@
         <!-- Div that will hold the stands chart -->
         <div id="stand_chart_div"></div>
         
-        <div id="bike_hour_chart_div"></div>
+        <div id="bike_hour_chart_div_mon"></div>
+        <div id="bike_hour_chart_div_tues"></div>
+        <div id="bike_hour_chart_div_wed"></div>
+        <div id="bike_hour_chart_div_thur"></div>
+        <div id="bike_hour_chart_div_fri"></div>
+        <div id="bike_hour_chart_div_sat"></div>
+        <div id="bike_hour_chart_div_sun"></div>
 
         <script src="{{ url_for('static', filename='js/stations-specific.js') }}"></script>
         <script>displayStationInfo()</script>
         <script>drawStandChart()</script>
         <script>drawBikeChart()</script>
-        <script>drawBikeHourChart()</script>
+        <script>drawBikeHourMonChart()</script>
+        <script>drawBikeHourTuesChart()</script>
+        <script>drawBikeHourWedChart()</script>
+        <script>drawBikeHourThurChart()</script>
+        <script>drawBikeHourFriChart()</script>
+        <script>drawBikeHourSatChart()</script>
+        <script>drawBikeHourSunChart()</script>
 </body>
 </html>
