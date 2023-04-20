@@ -397,7 +397,7 @@ function drawBikeHourSunChart() {
       var dayOfWeek = timestamp.getDay();
       var hourOfDay = timestamp.getHours();
       
-      if (dayOfWeek == 7) { // Only consider Sunday
+      if (dayOfWeek == 0) { // Only consider Sunday
         hourOfDayData[hourOfDay] += bikeData[i].available_bikes;
         hourOfDayCount[hourOfDay]++;
       }
