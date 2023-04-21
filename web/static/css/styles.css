@@ -580,28 +580,35 @@ ul#list li a {
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
-  }
-  
-  .chart-divs > div {
+    border-radius: 10px;
+}
+
+.chart-divs>div {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 400px; /* Adjust the height to match the chart height */
-  }
-  
-  .chart-divs > div > div {
+    min-height: 400px;
+    /* Adjust the height to match the chart height */
+    border-radius: 10px;
+}
+
+.chart-divs>div>div {
     width: 100%;
-    height: 400px; /* Adjust the height to match the chart height */
-  }
-  
-  .chart-divs > div:not([style*="display:none"]) {
+    height: 400px;
+    /* Adjust the height to match the chart height */
+    border-radius: 10px;
+}
+
+.chart-divs>div:not([style*="display:none"]) {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 400px; /* Adjust the height to match the chart height */
-  }  
+    min-height: 400px;
+    /* Adjust the height to match the chart height */
+    border-radius: 10px;
+}
 
 .chart-container {
     display: flex;
@@ -614,6 +621,7 @@ ul#list li a {
     flex: 1;
     min-width: 300px;
     max-width: 800px;
+    border-radius: 10px;
 }
 
 .chart-container h3 {
@@ -629,16 +637,24 @@ ul#list li a {
 }
 
 /* Targeting the child elements */
-#bike_chart_div, #stand_chart_div, #bike_hour_chart_div_mon, #bike_hour_chart_div_tues, #bike_hour_chart_div_wed, #bike_hour_chart_div_thur, #bike_hour_chart_div_fri, #bike_hour_chart_div_sat, #bike_hour_chart_div_sun {
+#bike_chart_div,
+#stand_chart_div,
+#bike_hour_chart_div_mon,
+#bike_hour_chart_div_tues,
+#bike_hour_chart_div_wed,
+#bike_hour_chart_div_thur,
+#bike_hour_chart_div_fri,
+#bike_hour_chart_div_sat,
+#bike_hour_chart_div_sun {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-    height: 400px; /* Adjust the height to match the chart height */
-    border-radius: 10px;
-  }
+    height: 400px;
+    /* Adjust the height to match the chart height */
+}
 
-  .specific-container {
+.specific-container {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
@@ -723,8 +739,45 @@ ul#list li a {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 10px; /* Adjust this value to position the text below the loader */
+    margin-top: 10px;
+    /* Adjust this value to position the text below the loader */
     text-align: center;
     font-size: 16px;
     color: #333;
+}
+
+.about-container {
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+    align-self: center;
+    justify-items: center;
+    padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.about-container input[type="text"] {
+    width: 72%;
+    /* Set the width of the input field to 100% of its container */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+}
+
+@media (max-width: 767px) {
+
+    /* Adjust the list-container width on smaller screens */
+    .about-container {
+        width: 100%;
+    }
+}
+
+.main-contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensures that the main element takes up at least the full viewport height */
+    margin-top: -1rem;
 }
