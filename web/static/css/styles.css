@@ -97,15 +97,6 @@ nav ul li a:hover {
     filter: invert(52%) sepia(94%) saturate(1921%) hue-rotate(191deg) brightness(103%) contrast(102%);
 }
 
-/* .nav-item:hover {
-    color: #44a0ff;
-}
-
-.nav-item img:hover {
-    color: #44a0ff;
-    filter: hue-rotate(90deg);
-} */
-
 h2 {
     margin-top: 2px;
     margin-bottom: 4px;
@@ -537,37 +528,6 @@ ul#list li a {
     }
 }
 
-/* Style for loader */
-.loader {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 9999;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.specific-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-}
-
 .row {
     margin-bottom: 1rem;
 }
@@ -613,17 +573,118 @@ ul#list li a {
     }
 }
 
-#loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
+.chart-divs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .chart-divs > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 400px; /* Adjust the height to match the chart height */
+  }
+  
+  .chart-divs > div > div {
+    width: 100%;
+    height: 400px; /* Adjust the height to match the chart height */
+  }
+  
+  .chart-divs > div:not([style*="display:none"]) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 400px; /* Adjust the height to match the chart height */
+  }  
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 300px;
+    max-width: 800px;
+}
+
+.chart-container h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .chart-container {
+        min-width: 100%;
+    }
+}
+
+/* Targeting the child elements */
+#bike_chart_div, #stand_chart_div, #bike_hour_chart_div_mon, #bike_hour_chart_div_tues, #bike_hour_chart_div_wed, #bike_hour_chart_div_thur, #bike_hour_chart_div_fri, #bike_hour_chart_div_sat, #bike_hour_chart_div_sun {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 400px; /* Adjust the height to match the chart height */
+    border-radius: 10px;
+  }
+
+  .specific-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .specific-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+} */
+
+/* .specific-container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    display: none;
+} */
+
+/* .specific-container.show:before {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.8);
+} */
+
+/* Style for loader */
+.loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     animation: spin 2s linear infinite;
 }
 
@@ -637,36 +698,33 @@ ul#list li a {
     }
 }
 
-.specific-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
+/* Loader container */
+.loader-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+/* Loader element */
+.loader-container .loader {
     position: relative;
-}
-
-.specific-container:before {
-    /* Add this pseudo-element */
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    /* Change the opacity and color as desired */
     z-index: 1;
-    /* Set a higher z-index than the loader */
-    display: none;
 }
 
-#loader.show {
+.loader-container.show .loader {
     display: block;
 }
 
-.specific-container.show:before {
-    display: block;
-    background-color: rgba(255, 255, 255, 0.8);
+/* Loader text */
+.loader-text {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px; /* Adjust this value to position the text below the loader */
+    text-align: center;
+    font-size: 16px;
+    color: #333;
 }

@@ -1,6 +1,6 @@
 // REFERENCE - Refactoring required
 // displays realtime information for a specific station
-function displayStationInfo(callback) {
+function displayStationInfo() {
   // Show the loading indicator
   document.getElementById("loader").style.display = "block";
 
@@ -31,16 +31,8 @@ function displayStationInfo(callback) {
       // Hide the loading indicator and show the information containers
       document.getElementById("loader").style.display = "none";
       document.getElementById("station_title_row").style.display = "block";
+      document.getElementById("current_availability_header").style.display = "block";
       document.getElementById("station_info").style.display = "block";
-      document.getElementById("bike_chart_div").style.display = "block";
-      document.getElementById("stand_chart_div").style.display = "block";
-      document.getElementById("bike_hour_chart_div_mon").style.display = "block";
-      document.getElementById("bike_hour_chart_div_tues").style.display = "block";
-      document.getElementById("bike_hour_chart_div_wed").style.display = "block";
-      document.getElementById("bike_hour_chart_div_thur").style.display = "block";
-      document.getElementById("bike_hour_chart_div_fri").style.display = "block";
-      document.getElementById("bike_hour_chart_div_sat").style.display = "block";
-      document.getElementById("bike_hour_chart_div_sun").style.display = "block";
     })
       .fail(function () {
         console.error("inner error");
@@ -49,10 +41,6 @@ function displayStationInfo(callback) {
     .fail(function () {
       console.error("outer error");
     });
-
-    if (callback) {
-      callback();
-    }
 }
 
 // inserts availability data onto the page 
@@ -77,21 +65,20 @@ function populateCurrentAvailability(header, key, availability, stationInfoList)
 }
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.load('current', { packages: ['corechart'] });
+
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(function () {
-  displayStationInfo(function() {
-    drawBikeChart();
-    drawStandChart();
-    drawBikeHourMonChart();
-    drawBikeHourTuesChart();
-    drawBikeHourWedChart();
-    drawBikeHourThurChart();
-    drawBikeHourFriChart();
-    drawBikeHourSatChart();
-    drawBikeHourSunChart();
-  });
+  drawBikeChart();
+  drawStandChart();
+  drawBikeHourMonChart();
+  drawBikeHourTuesChart();
+  drawBikeHourWedChart();
+  drawBikeHourThurChart();
+  drawBikeHourFriChart();
+  drawBikeHourSatChart();
+  drawBikeHourSunChart();
 });
 
 function drawBikeChart() {
@@ -121,13 +108,12 @@ function drawBikeChart() {
     }
     // Create and draw the chart
     var options = {
-      title: 'Average Bikes Availability by Day',
+      title: 'Average Bikes Available by Hour of Saturday',
+      hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f'],
     };
 
     var chartDiv = document.getElementById('bike_chart_div');
@@ -164,13 +150,12 @@ function drawStandChart() {
     }
     // Create and draw the chart
     var options = {
-      title: 'Average Stand Availability by Day',
+      title: 'Average Stands Available by Day of Week for Station ' + station_id,
+      hAxis: { title: 'Day of Week' },
       vAxis: { title: 'Average Stands' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
 
     var chartDiv = document.getElementById('stand_chart_div');
@@ -200,21 +185,18 @@ function drawBikeHourMonChart() {
     }
     var hours = [];
     for (var i = 0; i < 24; i++) {
-      i = i.toString()
       hours.push(i);
     }
     for (var j = 0; j < hourOfDayData.length; j++) {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Monday',
+      title: 'Average Bikes Available by Hour of Monday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_mon'));
     chart.draw(data, options);
@@ -247,14 +229,12 @@ function drawBikeHourTuesChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Tuesday',
+      title: 'Average Bikes Available by Hour of Tuesday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_tues'));
     chart.draw(data, options);
@@ -287,14 +267,12 @@ function drawBikeHourWedChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Wednesday',
+      title: 'Average Bikes Available by Hour of Wednesday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_wed'));
     chart.draw(data, options);
@@ -327,14 +305,12 @@ function drawBikeHourThurChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Thursday',
+      title: 'Average Bikes Available by Hour of Thursday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_thur'));
     chart.draw(data, options);
@@ -367,14 +343,12 @@ function drawBikeHourFriChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Friday',
+      title: 'Average Bikes Available by Hour of Friday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_fri'));
     chart.draw(data, options);
@@ -407,14 +381,12 @@ function drawBikeHourSatChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Saturday',
+      title: 'Average Bikes Available by Hour of Saturday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#00f']
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sat'));
     chart.draw(data, options);
@@ -447,17 +419,14 @@ function drawBikeHourSunChart() {
       data.addRow([hours[j].toString(), hourOfDayData[j] / hourOfDayCount[j]]); // Divide by count for each hour
     }
     var options = {
-      title: 'Hourly Distribution of Bike Availability for Sunday',
+      title: 'Average Bikes Available by Hour of Sunday',
       hAxis: { title: 'Hour' },
       vAxis: { title: 'Average Bikes' },
       legend: { position: 'none' },
       bar: { groupWidth: '80%' },
-      colors: ['#44a0ff'],
-      width: 1000,
-      height: 400,
+      colors: ['#3498db'],
     };
     var chart = new google.visualization.ColumnChart(document.getElementById('bike_hour_chart_div_sun'));
     chart.draw(data, options);
   });
 }
-
