@@ -159,7 +159,7 @@ function initMap() {
             // Creates a variable with my custom marker image
             var customMarkerIcon = {
                 url: 'img/marker.png',
-                scaledSize: new google.maps.Size(80, 80) // Width and height in pixels
+                scaledSize: new google.maps.Size(60, 60) // Width and height in pixels
             };
 
             // Loop through each station and add a marker to the map

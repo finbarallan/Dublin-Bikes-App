@@ -30,20 +30,26 @@
         <ul>
             <li>
                 <div class="nav-item">
-                    <img src="{{ url_for('static', filename='img/availablebikeswhite.png') }}" alt="Image 1">
-                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='img/bike.png') }}" alt="Image 1">
+                        Home
+                    </a>
                 </div>
             </li>
             <li>
                 <div class="nav-item">
-                    <img src="{{ url_for('static', filename='img/bikestandswhite.png') }}" alt="Image 2">
-                    <a href="{{ url_for('all_stations') }}">Stations</a>
+                    <a href="{{ url_for('all_stations') }}">
+                        <img src="{{ url_for('static', filename='img/station.png') }}" alt="Image 2">
+                        Stations
+                    </a>
                 </div>
             </li>
             <li>
                 <div class="nav-item">
-                    <img src="{{ url_for('static', filename='img/aboutwhite.png') }}" alt="Image 3">
-                    <a href="{{ url_for('about') }}">About</a>
+                    <a href="{{ url_for('about') }}">
+                        <img src="{{ url_for('static', filename='img/about.png') }}" alt="Image 3">
+                        About
+                    </a>
                 </div>
             </li>
         </ul>

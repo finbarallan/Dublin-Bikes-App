@@ -12,12 +12,13 @@ header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .logo1 img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+    margin-top: 0.5rem;
     margin-right: 1rem;
 }
 
@@ -28,9 +29,8 @@ header {
 }
 
 .logo2 img {
-    height: 50px;
-    padding: 5px;
-    /* Add padding to the image */
+    height: 45px;
+    margin-top: 0.5rem;
 }
 
 header h1 {
@@ -43,7 +43,13 @@ header h1 {
 
 nav {
     background-color: #444;
-    padding: 0.75rem 1rem;
+    font-size: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+nav a {
+    font-size: small;
 }
 
 nav ul {
@@ -63,14 +69,10 @@ nav ul li a {
     text-decoration: none;
     color: #fff;
     font-family: "Open Sans", sans-serif;
-    font-size: 22px;
+    font-size: 18px;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     transition: background-color 0.2s;
-}
-
-.nav-item a:hover {
-    color: #44a0ff;
 }
 
 .nav-item {
@@ -78,13 +80,31 @@ nav ul li a {
     align-items: center;
 }
 
-.nav-item img {
-    width: 40px;
-    height: 40px;
-    margin-right: 2px;
-    padding: 5px;
-    /* Add padding to the image */
+nav ul li a {
+    display: inline-flex;
+    align-items: center;
 }
+
+.nav-item img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    padding: 5px;
+    filter: brightness(0) invert(1);
+}
+
+nav ul li a:hover {
+    filter: invert(52%) sepia(94%) saturate(1921%) hue-rotate(191deg) brightness(103%) contrast(102%);
+}
+
+/* .nav-item:hover {
+    color: #44a0ff;
+}
+
+.nav-item img:hover {
+    color: #44a0ff;
+    filter: hue-rotate(90deg);
+} */
 
 h2 {
     margin-top: 2px;
@@ -177,7 +197,10 @@ h3 {
 }
 
 main {
-    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     width: 100%;
     box-sizing: border-box;
     flex-wrap: wrap;
@@ -333,10 +356,10 @@ main {
 
 #predict-button {
     width: auto;
-    background-color: #333;
+    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
@@ -346,9 +369,10 @@ main {
     margin-bottom: 0.5rem;
 }
 
-
 #predict-button:hover {
-    background-color: #444;
+    background-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
 }
 
 #prediction-results {
@@ -426,18 +450,6 @@ main {
 }
 
 .learn-more-button {
-    display: inline-block;
-    text-decoration: none;
-    color: #ffffff;
-    background-color: #000000;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-}
-
-.learn-more-button {
     position: absolute;
     right: 1rem;
     bottom: 1rem;
@@ -447,7 +459,7 @@ main {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s;
 }
 
 .learn-more-button:hover {
