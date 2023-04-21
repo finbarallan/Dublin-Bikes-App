@@ -2,46 +2,82 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dublin Bikes</title>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-  <link rel="icon" type="image/x-icon" href="img\favicon.ico">
-  <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/marker.png') }}">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <h1>About</h1>
-  </header>
-  <nav>
-    <ul>
-      <li><a href="{{ url_for('index') }}">Home</a></li>
-      <li><a href="{{ url_for('all_stations') }}">Stations</a></li>
-      <li><a href="{{ url_for('about') }}">About</a></li>
-    </ul>
-  </nav>
-  <main>
-    <div class="list-container">
-        <h2>Functionality</h2>
-        <h3>Get Directions</h3>
-        <p>To get directions, click the input box below either the 'Begin Journey' or 'Finish Journey' headings and 
-            select a location on the map. This will display a route from the start or endpoint of the trip to the nearest
-            bike station in both cases and will load the name of the neaest station into the input box while auto-zooming 
-            the map to ensure both sets of directions are displayed. To change either the start or endpoint simply select 
-            the corresponding input box and and select a new location onthe map to overright the existing location and get 
-            a new set of directions.
-        </p>
-        <h3>Frequently Asked Questions</h3>
-        <p>Why does it look so bad?</p>
-        <h3>Quirks and Features</h3>
-        <p>Download Chrome</p>
-    </div>
-  </main>
-  <script id="main-script" src="{{ url_for('static', filename='js/map.js') }}"></script>
-  <script id="main-script" src="{{ url_for('static', filename='js/weather.js') }}"></script>
-  <script id="main-script" src="{{ url_for('static', filename='js/predictive.js') }}"></script>
+    <header>
+        <div class="logo1">
+            <a href="{{ url_for('index') }}" class="logo1"><img
+                    src="{{ url_for('static', filename='img/logo_notext.png') }}" alt="logo1" />
+            </a>
+        </div>
+        <h1>Dublin Bikes Finder</h1>
+        <div class="logo2">
+            <a href="https://www.dublincity.ie/residential" target="_blank">
+                <img src="{{ url_for('static', filename='img/logo-contractor.png') }}" alt="logo2" />
+            </a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <div class="nav-item">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='img/bike.png') }}" alt="Image 1">
+                        Home
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-item">
+                    <a href="{{ url_for('all_stations') }}">
+                        <img src="{{ url_for('static', filename='img/station.png') }}" alt="Image 2">
+                        Stations
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-item">
+                    <a href="{{ url_for('about') }}">
+                        <img src="{{ url_for('static', filename='img/about.png') }}" alt="Image 3">
+                        About
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="list-container">
+            <h2>Functionality</h2>
+            <h3>Get Directions</h3>
+            <p>To get directions, click the input box below either the 'Begin Journey' or 'Finish Journey' headings and
+                select a location on the map. This will display a route from the start or endpoint of the trip to the
+                nearest
+                bike station in both cases and will load the name of the neaest station into the input box while
+                auto-zooming
+                the map to ensure both sets of directions are displayed. To change either the start or endpoint simply
+                select
+                the corresponding input box and and select a new location onthe map to overright the existing location
+                and get
+                a new set of directions.
+            </p>
+            <h3>Frequently Asked Questions</h3>
+            <p>Why does it look so bad?</p>
+            <h3>Quirks and Features</h3>
+            <p>Download Chrome</p>
+        </div>
+    </main>
+    <script id="main-script" src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script id="main-script" src="{{ url_for('static', filename='js/weather.js') }}"></script>
+    <script id="main-script" src="{{ url_for('static', filename='js/predictive.js') }}"></script>
 </body>
+
 </html>

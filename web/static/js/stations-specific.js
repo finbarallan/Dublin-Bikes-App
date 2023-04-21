@@ -420,4 +420,3 @@ function drawBikeHourSunChart() {
     chart.draw(data, options);
   });
 }
-
