@@ -100,8 +100,3 @@ def predict():
 
 if __name__ == "__main__":
     app.run(port=8080)
-
-#need to add availability functionality route
-#need to add distance calculation functionality route
-#need to ad weather information route
-#reconnect to server

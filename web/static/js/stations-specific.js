@@ -1,11 +1,9 @@
-// REFERENCE - Refactoring required
-// displays realtime information for a specific station
 function displayStationInfo(callback) {
   // Show the loading indicator
   document.getElementById("loader").style.display = "block";
 
-  // getting the name of the station
-  var jqxhr = $.getJSON("/station-info/" + station_id, function (data) {
+  // Loading from database
+  var addStationInfo = $.getJSON("/station-info/" + station_id, function (data) {
     console.log("success", data);
     var stationInfo = data;
 
@@ -17,7 +15,7 @@ function displayStationInfo(callback) {
     const stationInfoList = document.getElementById("station_info");
 
     // Display real time availability information
-    var jqxhr = $.getJSON("/bike-info/" + station_id, function (data) {
+    var addBikeInfo = $.getJSON("/bike-info/" + station_id, function (data) {
       console.log("success", data);
       var availability = [];
       availability = data;

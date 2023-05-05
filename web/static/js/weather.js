@@ -5,7 +5,7 @@ function fetchWeather() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Add this line to log the response data
+        console.log(data);
         displayWeather(data);
       })
       .catch((error) => {

@@ -38,7 +38,6 @@ header h1 {
     margin: 0;
     display: inline-block;
     margin-left: 1rem;
-    /* Add this line to add space between logo and header text */
 }
 
 nav {
@@ -124,10 +123,6 @@ h3 {
     padding-bottom: 0.5rem;
 }
 
-/* .journey-section h2 {
-    margin-bottom: 0.25rem;
-} */
-
 .journey-section input {
     height: 30px;
     width: 100%;
@@ -154,7 +149,6 @@ h3 {
     width: 32%;
     min-width: 300px;
     max-width: 320px;
-    /* Adjust this value to your preference */
     box-sizing: border-box;
     margin-right: 1rem;
 }
@@ -164,7 +158,6 @@ h3 {
     width: 100%;
 }
 
-/* Add this media query */
 @media (max-width: 767px) {
     .content-container {
         display: block;
@@ -174,7 +167,6 @@ h3 {
         min-width: 100%;
         margin-bottom: 1rem;
         margin-right: 0;
-        /* Add this line */
     }
 
     .map-container {
@@ -211,7 +203,6 @@ main {
     background-color: #fff;
 }
 
-/* Add this to limit the width of the input fields */
 .journey-container input,
 .journey-container select {
     max-width: 100%;
@@ -255,9 +246,7 @@ main {
 
 .weather-details p {
     margin-top: 0.65rem;
-    /* Adjust this value to change the spacing between paragraphs */
     margin-bottom: 0.65rem;
-    /* Adjust this value to change the spacing between paragraphs */
 }
 
 .wind-arrow {
@@ -459,7 +448,6 @@ main {
     text-decoration: none;
 }
 
-/* Add the following rules */
 #container {
     max-width: 1200px;
     margin: 0 auto;
@@ -467,7 +455,6 @@ main {
     background-color: #fff;
     border-radius: 10px;
     text-align: center;
-    /* Add this line to center text */
 }
 
 .row {
@@ -476,14 +463,11 @@ main {
 
 .list-container {
     width: 50%;
-    /* Set the width of the container */
     margin: 0 auto;
-    /* Center the container */
 }
 
 .list-container input[type="text"] {
     width: 72%;
-    /* Set the width of the input field to 100% of its container */
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -496,9 +480,7 @@ ul#list {
     list-style-type: none;
     padding: 0;
     width: 72%;
-    /* Add this line to set the list width */
     margin: 0 auto;
-    /* Add this line to center the list */
 }
 
 ul#list li {
@@ -521,8 +503,6 @@ ul#list li a {
 }
 
 @media (max-width: 767px) {
-
-    /* Adjust the list-container width on smaller screens */
     .list-container {
         width: 100%;
     }
@@ -589,14 +569,12 @@ ul#list li a {
     align-items: center;
     width: 100%;
     min-height: 400px;
-    /* Adjust the height to match the chart height */
     border-radius: 10px;
 }
 
 .chart-divs>div>div {
     width: 100%;
     height: 400px;
-    /* Adjust the height to match the chart height */
     border-radius: 10px;
 }
 
@@ -606,7 +584,6 @@ ul#list li a {
     align-items: center;
     width: 100%;
     min-height: 400px;
-    /* Adjust the height to match the chart height */
     border-radius: 10px;
 }
 
@@ -651,7 +628,6 @@ ul#list li a {
     align-items: center;
     margin: auto;
     height: 400px;
-    /* Adjust the height to match the chart height */
 }
 
 .specific-container {
@@ -667,34 +643,6 @@ ul#list li a {
     align-items: center;
 }
 
-/* .specific-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-} */
-
-/* .specific-container:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 1;
-    display: none;
-} */
-
-/* .specific-container.show:before {
-    display: block;
-    background-color: rgba(255, 255, 255, 0.8);
-} */
-
-/* Style for loader */
 .loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
@@ -733,14 +681,12 @@ ul#list li a {
     display: block;
 }
 
-/* Loader text */
 .loader-text {
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 10px;
-    /* Adjust this value to position the text below the loader */
     text-align: center;
     font-size: 16px;
     color: #333;
@@ -767,8 +713,6 @@ ul#list li a {
 }
 
 @media (max-width: 767px) {
-
-    /* Adjust the list-container width on smaller screens */
     .about-container {
         width: 100%;
     }
@@ -778,6 +722,6 @@ ul#list li a {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensures that the main element takes up at least the full viewport height */
+    min-height: 100vh;
     margin-top: -1rem;
 }

@@ -105,7 +105,6 @@ var snazzyMapStyle = [
     }
 ]
 
-// Declare the map variable globally
 var map;
 
 
@@ -117,7 +116,7 @@ function initMap() {
             lat: 53.346396,
             lng: -6.263156
         }, // Set the center point of the map
-        styles: snazzyMapStyle // Remove this line if you don't have a style
+        styles: snazzyMapStyle
     };
 
     // Create the map object
@@ -128,7 +127,7 @@ function initMap() {
         map: map,
         suppressMarkers: true,
         polylineOptions: {
-            strokeColor: '#a6eca8'
+            strokeColor: '#22b14c'
         },
         preserveViewport: true,
     });
